@@ -1,4 +1,5 @@
 CMPE 152 Project: x86 Assembly Compiler
+
 This project involves designing a compiler in Python for CMPE 152. The goal is to create a tool that can validate x86 assembly language code.
 
 The compiler will:
