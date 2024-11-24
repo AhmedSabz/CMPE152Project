@@ -16,6 +16,8 @@ public:
 
 class AssemblyInterpreter {
 private:
+        int errorExists=0;
+
 	std::unordered_map<std::string, int> registers;
 	string g = "main";
 	string exit="exit";
@@ -30,23 +32,23 @@ private:
 		string op= parts[0];
 
 		if(!valid_instructions.count(op)){
-			throw std::invalid_argument("Error on line " + std::to_string(line_num) + " Invalid operation " + "'");
-
+			cout<<("Error on line " + std::to_string(line_num) + " Invalid operation " + "'")<<endl;
+             errorExists=1;
 		}
 		if (op == "MOV" || op == "mov") {
 			// Check for too many operands
 			if (parts.size() != 3) {
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": " + op + " requires exactly 2 operands");
-
+			cout<<("Error on line " + std::to_string(line_num) + ": " + op + " requires exactly 2 operands")<<endl;
+                errorExists=1;
 			}
 			if(!registers.count(parts[1])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'");
-
+				cout<<("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'")<<endl;
+                     errorExists=1;
 			}
 
 			if(!registers.count(parts[2])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'");
-
+				cout<<("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'")<<endl;
+                     errorExists=1;
 			}
 			registers[parts[1]]= registers[parts[2]];
 		}
@@ -54,34 +56,38 @@ private:
 		else if (op == "li") {
 			// Check for too many operands
 			if (parts.size() != 3) {
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": " + op + " requires exactly 2 operands");
-
+				cout<<("Error on line " + std::to_string(line_num) + ": " + op + " requires exactly 2 operands")<<endl;
+                     errorExists=1;
 			}
 			if(!registers.count(parts[1])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'");
-
+			cout<<("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'")<<endl;
+                 errorExists=1;
 			}
 
 			if(!stoi(parts[2])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid immediate value '" + parts[1] + "'");
-
+				cout<<("Error on line " + std::to_string(line_num) + ": Invalid immediate value '" + parts[1] + "'")<<endl;
+                     errorExists=1;
 			}
 			registers[parts[1]]=stoi(parts[2]);
 		}
 		else if (op == "add" ||op =="ADD" || op == "sub" || op=="SUB" || op == "mul" || op == "MUL") {
 			if (parts.size() != 4) {
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": " + op + " requires exactly 3 operands");
+				cout<<("Error on line " + std::to_string(line_num) + ": " + op + " requires exactly 3 operands")<<endl;
+                 errorExists=1;
 			}
 			if(!registers.count(parts[1])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'");
+				cout<<("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'")<<endl;
+                 errorExists=1;
 
 			}
 			if(!registers.count(parts[2])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[2] + "'");
+				cout<<("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[2] + "'")<<endl;
+                 errorExists=1;
 
 			}
 			if(!registers.count(parts[3])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[3] + "'");
+				cout<<("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[3] + "'")<<endl;
+                 errorExists=1;
 
 			}
 			int val1 = registers[parts[2]];
@@ -98,18 +104,22 @@ private:
 		}
 		else if(op == "addi" || "ADDI" || "subi" || "SUBI"){
 			if (parts.size() != 4) {
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": " + op + " requires exactly 3 operands");
+				cout<<("Error on line " + std::to_string(line_num) + ": " + op + " requires exactly 3 operands")<<endl;
+                 errorExists=1;
 			}
 			if(!registers.count(parts[1])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'");
+				cout<<("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[1] + "'")<<endl;
+                 errorExists=1;
 
 			}
 			if(!registers.count(parts[2])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[2] + "'");
+				cout<<("Error on line " + std::to_string(line_num) + ": Invalid register '" + parts[2] + "'")<<endl;
+                 errorExists=1;
 
 			}
 			if(!stoi(parts[3])){
-				throw std::invalid_argument("Error on line " + std::to_string(line_num) + ": Invalid immediate value '" + parts[3] + "'");
+				cout<<("Error on line " + std::to_string(line_num) + ": Invalid immediate value '" + parts[3] + "'")<<endl;
+                 errorExists=1;
 
 			}
 			int val1= registers[parts[2]];
@@ -120,7 +130,6 @@ private:
 						registers[parts[1]] = val1 - val2;
 					}
 		}
-
 	}
 public:
 	void run_program(string& program){
@@ -134,6 +143,10 @@ public:
 
 			}
 		}
+          if(errorExists==1){
+			throw std::invalid_argument("Program terminated with the errors above" );
+
+        }
 		cout<<"final register values"<<endl;
 		for(auto it= registers.begin(); it != registers.end(); it++){
 			cout<<it->first <<": "<< it->second<<endl;
