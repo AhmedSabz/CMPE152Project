@@ -1,6 +1,6 @@
-CMPE 152 Project: x86 Assembly Compiler
-
-This project involves designing a compiler in C++ for CMPE 152. The goal is to create a tool that can validate x86 assembly language code.
+CMPE 152 Project: Penta Assembly Compiler
+Penta is a new assembly language that my team made. It involves 5 registers along with add, multiply, and subtract instructions
+This project involves designing a compiler in C++ for CMPE 152. The goal is to create a tool that can validate Penta assembly language code.
 
 The compiler will:
 
