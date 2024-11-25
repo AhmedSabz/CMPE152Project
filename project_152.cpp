@@ -7,12 +7,12 @@
 #include <stdexcept>
 #include <cctype>
 using namespace std;
-class ProgramTerminatedException : public std::exception {
-public:
-    const char* what() const noexcept override {
-        return "Program terminated";
-    }
-};
+// class ProgramTerminatedException : public std::exception {
+// public:
+//     const char* what() const noexcept override {
+//         return "Program terminated";
+//     }
+// };
 
 class AssemblyInterpreter {
 private:
@@ -144,7 +144,7 @@ public:
 			}
 		}
           if(errorExists==1){
-			throw std::invalid_argument("Program terminated with the errors above" );
+			throw ("Program terminated with the errors above" );
 
         }
 		cout<<"final register values"<<endl;
